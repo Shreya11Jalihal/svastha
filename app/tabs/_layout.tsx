@@ -1,9 +1,9 @@
-import { Tabs } from "expo-router"
 import React from 'react'
 import { StyleSheet } from 'react-native'
+import Profile from './profile'
 
 const _layout = () => {
-  return <Tabs></Tabs>
+  return <Profile></Profile>
 }
 
 export default _layout

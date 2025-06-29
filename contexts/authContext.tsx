@@ -1,7 +1,7 @@
 import { auth, firestore } from "@/config/firebase";
 import { AuthContextType, UserType } from "@/types";
 import { useRouter } from "expo-router";
-import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { createContext, useContext, useEffect, useState } from "react";
 
@@ -19,8 +19,8 @@ export const AuthProvider: React.FC<{children: React.ReactNode}> = ({children}) 
             email:firebaseUser?.email,
             name:firebaseUser?.displayName
           });
-          console.log('Redirecting to /tabs/profile');
-          router.replace("../tabs")
+         console.log('Redirecting to /tabs/profile');
+          router.replace("../tabs/profile")
         }
         else{
           setUser(null);
@@ -32,6 +32,7 @@ export const AuthProvider: React.FC<{children: React.ReactNode}> = ({children}) 
     },[]);
 
 const login = async (email: string, password: string) => {
+   const router= useRouter();
   try {
     await signInWithEmailAndPassword(auth, email, password);
     return { success: true };
@@ -42,6 +43,7 @@ const login = async (email: string, password: string) => {
 };
 
 const register = async (name: string, email: string, password: string) => {
+   const router= useRouter();
   try {
     let response = await createUserWithEmailAndPassword(auth,email,password);
     await setDoc(doc(firestore, "users", response?.user?.uid),{
@@ -49,7 +51,11 @@ const register = async (name: string, email: string, password: string) => {
       email,
       uid: response?.user?.uid
     });
-
+   
+    const user = response.user;
+    await updateProfile(user, { displayName: name });
+    console.log("hey")
+   
     return { success: true };
   } catch (error: any) {
     let msg = error.message;

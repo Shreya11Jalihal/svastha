@@ -1,6 +1,8 @@
 import { useAuth } from '@/contexts/authContext';
+import { router } from 'expo-router';
 import React, { useRef } from 'react';
-import { Alert, StyleSheet, Text, TextInput, TouchableOpacity } from 'react-native';
+import { Alert, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { Button, Input } from 'react-native-elements';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
 const Register = () => {
@@ -30,25 +32,29 @@ const Register = () => {
   return (
     <SafeAreaProvider>
       <SafeAreaView>
-        <TextInput
-        placeholder="Enter your name"
-        onChangeText={(value) => (nameRef.current = value)}
-        />
+        <Input   inputStyle ={{ fontSize: 16 , fontWeight: 'bold'}} placeholder='Enter your name' autoCapitalize="none"  onChangeText={(value) => (nameRef.current = value)}/>
 
-        <TextInput
-        placeholder="Enter your email"
-        keyboardType="email-address"
-        autoCapitalize="none"
-        onChangeText={(value) => (emailRef.current = value.trim())}
-        />
-        <TextInput
-        placeholder="Enter your password"
-        onChangeText={(value) => (passwordRef.current= value)}
-        />
-  	  
-        <TouchableOpacity style={styles.button} onPress={handleSubmit}>
-          <Text>Signup</Text>
+        <Input   inputStyle ={{ fontSize: 16 , fontWeight: 'bold'}} placeholder='Enter your email address' autoCapitalize="none"  keyboardType="email-address"
+        onChangeText={(value) => (emailRef.current = value.trim())}/>
+        <Input   inputStyle ={{ fontSize: 16 , fontWeight: 'bold'}} placeholder='Enter your password' autoCapitalize="none"   onChangeText={(value) => (passwordRef.current= value)}/>
+        <TouchableOpacity onPress={()=>router.push('/auth/login')}>
+                <Text style={styles.link}>Login</Text>
         </TouchableOpacity>
+        <Button 
+              title="Register"
+              loading={false}
+               loadingProps={{ size: 'small' }}
+              buttonStyle={{
+                borderColor: 'white',
+                borderRadius: 30,
+              }}
+              titleStyle={{ fontWeight: 'bold', fontSize: 20 }}
+              containerStyle={{
+                marginHorizontal: 120,
+                width: 150,
+              }}
+              onPress={handleSubmit}
+            />
         
       </SafeAreaView>
     </SafeAreaProvider>
@@ -68,6 +74,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'colors.blue',
     padding: 10,
+  },
+   link: {
+    textDecorationLine: 'underline',
+    color: '#4A4A68', // your purple-ish color
+    fontSize: 16,
+    marginVertical: 8,
+    marginHorizontal: 10,
+    alignSelf: 'flex-end',
   },
 });
 

@@ -1,24 +1,37 @@
 import ScreenWrapper from '@/components/ScreenWrapper'
-import Typo from '@/components/Typo'
 import { colors, spacingX, spacingY } from '@/constants/theme'
 import { verticalScale } from '@/utils/styling'
 import { useRouter } from 'expo-router'
 import React from 'react'
-import { Image, StyleSheet, TouchableOpacity, View } from 'react-native'
+import { Image, StyleSheet, View } from 'react-native'
+import { Button } from 'react-native-elements'
 
 const Welcome = ()=> {
   const router= useRouter();
   return (
     <ScreenWrapper>
       <View style={styles.container}>
-        {/*login button*/}
+        
          <View>
-          <TouchableOpacity onPress={()=>router.push('/auth/login')} style={styles.loginButton}>
-            <Typo fontWeight="500">Sign in</Typo>
-          </TouchableOpacity>
-           <TouchableOpacity onPress={()=>router.push('/auth/register')} style={styles.loginButton}>
-            <Typo fontWeight="500">Register</Typo>
-          </TouchableOpacity> 
+          <Button title="Login" onPress={()=>router.push('/auth/login')}
+            buttonStyle={{
+                borderColor: 'white',
+                borderRadius: 30,
+                width:100,
+                alignSelf: "flex-end",
+                marginVertical: 10,
+              }}>
+          </Button>
+           
+          <Button title="Register" onPress={()=>router.push('/auth/register')}
+            buttonStyle={{
+                borderColor: 'white',
+                borderRadius: 30,
+                width:100,
+                marginVertical: 10,
+                alignSelf: "flex-end",
+              }}/>
+           
 
           <Image
             source={require("../../assets/images/tablets.jpg")}
@@ -45,7 +58,6 @@ const styles = StyleSheet.create({
     width: "100%",
     height: verticalScale(300),
     alignSelf: "center",
-    marginTop: verticalScale(100),
   },
   loginButton: {
     alignSelf: "flex-end",
