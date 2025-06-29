@@ -19,7 +19,7 @@ const Login = () => {
     console.log(res)
     if(res.success)
     {
-      router.replace("/(tabs)");
+      router.replace("../tabs");
     }
   }
   

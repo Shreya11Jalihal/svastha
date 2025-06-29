@@ -13,10 +13,10 @@ const Welcome = ()=> {
       <View style={styles.container}>
         {/*login button*/}
          <View>
-          <TouchableOpacity onPress={()=>router.push('/')} style={styles.loginButton}>
+          <TouchableOpacity onPress={()=>router.push('/auth/login')} style={styles.loginButton}>
             <Typo fontWeight="500">Sign in</Typo>
           </TouchableOpacity>
-           <TouchableOpacity onPress={()=>router.push('')} style={styles.loginButton}>
+           <TouchableOpacity onPress={()=>router.push('/auth/register')} style={styles.loginButton}>
             <Typo fontWeight="500">Register</Typo>
           </TouchableOpacity> 
 
