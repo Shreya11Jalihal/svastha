@@ -19,8 +19,8 @@ export const AuthProvider: React.FC<{children: React.ReactNode}> = ({children}) 
             email:firebaseUser?.email,
             name:firebaseUser?.displayName
           });
-         console.log('Redirecting to /tabs/profile');
-          router.replace("../tabs/profile")
+         console.log('Redirecting to /tabs');
+          router.replace("../tabs/home")
         }
         else{
           setUser(null);
