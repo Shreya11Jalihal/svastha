@@ -1,31 +1,66 @@
-import { auth } from '@/config/firebase'
-import { colors, spacingX } from '@/constants/theme'
-import { signOut } from 'firebase/auth'
-import React from 'react'
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { auth } from '@/config/firebase';
+import { Tabs } from 'expo-router';
+import { signOut } from 'firebase/auth';
+import React from 'react';
+import { Image, StyleSheet, Text, View } from 'react-native';
+import { Button } from 'react-native-elements';
 
-const Home= () => {
-
-  const handleLogout= async ()=>{
+const Home = () => {const handleLogout= async ()=>{
     await signOut(auth);
   }
+const user = auth.currentUser;
+
 
   return (
-    <View>
-      <Text>Home</Text>
-      <TouchableOpacity onPress={handleLogout} style={styles.logoutButton}>
-        <Text>Logout</Text>
-        </TouchableOpacity>
+    <View style={styles.container}>
+      <Tabs></Tabs>
+      <Button  title="Logout" onPress={handleLogout}/>
+      <Image
+        source={require('../../assets/images/welcome.png')}
+        style={styles.image}
+        resizeMode="contain"
+      />
+
+      <Text  style={styles.heading}>
+        Hello { user?.displayName }
+      </Text>
+
+      <Text style={styles.subtitle}>
+        You are doing well today. Don’t forget to exercise in the evening and take glucose test after your meal in the evening.
+      </Text>
+
     </View>
-  )
+  );
 }
 
-export default Home
-
 const styles = StyleSheet.create({
-  logoutButton: {
-      alignSelf: "flex-end",
-      marginRight: spacingX._20,
-      color: colors.blue
-    },
-})
+  container: {
+    flex: 1,
+    padding: 24,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#fff', // adjust to match your design
+  },
+  image: {
+    width: 250,
+    height: 250,
+    marginBottom: 32,
+  },
+  heading: {
+    fontWeight: 'bold',
+    marginBottom: 12,
+  },
+  subtitle: {
+    textAlign: 'center',
+    color: '#666',
+    marginBottom: 24,
+    paddingHorizontal: 16,
+  },
+  button: {
+    backgroundColor: '#6B4EFF',
+    paddingHorizontal: 24,
+    borderRadius: 12,
+  },
+});
+
+export default Home
