@@ -1,9 +1,11 @@
 import { useAuth } from '@/contexts/authContext';
 import { router } from 'expo-router';
 import React, { useRef } from 'react';
-import { Alert, StyleSheet, Text, TouchableOpacity } from 'react-native';
-import { Button, Input } from 'react-native-elements';
+import { Alert, StyleSheet, TouchableOpacity } from 'react-native';
+import { Button, colors, Input, Text } from 'react-native-elements';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
+
+
 
 const Register = () => {
   const emailRef =  useRef("");
@@ -17,14 +19,11 @@ const Register = () => {
     {
       Alert.alert("please fill in all the details for Sign up");
       return;
-
     }
     const res = await registerUser(nameRef.current, emailRef.current, passwordRef.current );
     console.log("register Results", res);
     if(!res.success)
     {
-    console.log(/^\s+$/.test(emailRef.current))
-    console.log(emailRef.current)
     Alert.alert("sign up error",res.msg)
     }
   }
@@ -32,11 +31,20 @@ const Register = () => {
   return (
     <SafeAreaProvider>
       <SafeAreaView>
+        
+           <Text h2  h2Style={{ color:colors.grey0, fontSize: 30, marginLeft: 12,paddingTop:28 }}>Let's</Text>
+           <Text h2 h2Style={{ color:colors.grey0, fontSize: 30 , marginLeft: 12 }}>Get Started</Text>
+           <Text h4 h4Style={{ color:colors.grey3, fontSize: 16, marginLeft: 12 }}>Create an account to track your health</Text>
+        
         <Input   inputStyle ={{ fontSize: 16 , fontWeight: 'bold'}} placeholder='Enter your name' autoCapitalize="none"  onChangeText={(value) => (nameRef.current = value)}/>
 
         <Input   inputStyle ={{ fontSize: 16 , fontWeight: 'bold'}} placeholder='Enter your email address' autoCapitalize="none"  keyboardType="email-address"
         onChangeText={(value) => (emailRef.current = value.trim())}/>
+        
         <Input   inputStyle ={{ fontSize: 16 , fontWeight: 'bold'}} placeholder='Enter your password' autoCapitalize="none"   onChangeText={(value) => (passwordRef.current= value)}/>
+
+        
+        
         <TouchableOpacity onPress={()=>router.push('/auth/login')}>
                 <Text style={styles.link}>Login</Text>
         </TouchableOpacity>

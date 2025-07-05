@@ -1,8 +1,9 @@
+
 import { useAuth } from '@/contexts/authContext';
 import { router } from 'expo-router';
 import React, { useRef } from 'react';
-import { Alert, StyleSheet, Text, TouchableOpacity } from 'react-native';
-import { Button, Input } from 'react-native-elements';
+import { Alert, StyleSheet, TouchableOpacity } from 'react-native';
+import { Button, colors, Input, Text } from 'react-native-elements';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
 
@@ -18,6 +19,7 @@ const Login = () => {
       Alert.alert("please fill in all the details")
     }
     const res=await loginUser(emailRef.current, passwordRef.current);
+    
     console.log(res)
     if(res.success)
     {
@@ -27,7 +29,9 @@ const Login = () => {
   
   return (
     <SafeAreaProvider>
-      <SafeAreaView>
+       <SafeAreaView>    
+          <Text h2  h2Style={{ color:colors.grey0, fontSize: 30, marginLeft: 12,paddingTop:28 }}>Hey</Text>
+          <Text h4 h4Style={{ color:colors.grey3, fontSize: 16, marginLeft: 12, marginBottom:10 }}>Welcome Back!</Text>
         <Input   inputStyle ={{ fontSize: 16 , fontWeight: 'bold'}} placeholder='Enter email' autoCapitalize="none" onChangeText={(value) => (emailRef.current = value)}/>
 
         <Input inputStyle ={{ fontSize: 16 , fontWeight: 'bold'}} placeholder="Enter password" secureTextEntry={true}  onChangeText={(value) => (passwordRef.current = value)}/>
@@ -35,6 +39,12 @@ const Login = () => {
        <TouchableOpacity onPress={()=>router.push('/auth/register')}>
         <Text style={styles.link}>Register</Text>
        </TouchableOpacity>
+
+      <TouchableOpacity onPress={()=>router.push('/auth/forgotPassword')}>
+        <Text style={styles.link}>Forgot Password</Text>
+       </TouchableOpacity>
+       
+
 
         <Button 
               title="Login"

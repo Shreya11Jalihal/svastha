@@ -32,7 +32,6 @@ export const AuthProvider: React.FC<{children: React.ReactNode}> = ({children}) 
     },[]);
 
 const login = async (email: string, password: string) => {
-   const router= useRouter();
   try {
     await signInWithEmailAndPassword(auth, email, password);
     return { success: true };
@@ -43,7 +42,6 @@ const login = async (email: string, password: string) => {
 };
 
 const register = async (name: string, email: string, password: string) => {
-   const router= useRouter();
   try {
     let response = await createUserWithEmailAndPassword(auth,email,password);
     await setDoc(doc(firestore, "users", response?.user?.uid),{
@@ -51,6 +49,8 @@ const register = async (name: string, email: string, password: string) => {
       email,
       uid: response?.user?.uid
     });
+
+    
    
     const user = response.user;
     await updateProfile(user, { displayName: name });
