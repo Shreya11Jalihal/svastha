@@ -1,16 +1,25 @@
 
 import { useAuth } from '@/contexts/authContext';
 import { router } from 'expo-router';
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { Alert, StyleSheet, TouchableOpacity } from 'react-native';
-import { Button, colors, Input, Text } from 'react-native-elements';
+import { Button, colors, Icon, Input, Text } from 'react-native-elements';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
-
 
 const Login = () => {
   const emailRef =  useRef("");
   const passwordRef =  useRef("");
-
+  const [secureText, setSecureText] = useState(true);
+  const [isBiometricSupported, setIsBiometricSupported] = useState(false);
+  const fallBacktoDefaultAuth = () =>{
+    console.log("fallback to password Authentication");
+  }
+  const handleBiometricAuthentication = async() =>{
+if(!isBiometricSupported)
+{
+  Alert.alert("Biomertic is not supported, please enter your passwor")
+}
+  }
   const {login : loginUser } =useAuth();
   const handleSubmit= async() =>{
     if(!emailRef.current || !passwordRef.current)
@@ -34,7 +43,19 @@ const Login = () => {
           <Text h4 h4Style={{ color:colors.grey3, fontSize: 16, marginLeft: 12, marginBottom:10 }}>Welcome Back!</Text>
         <Input   inputStyle ={{ fontSize: 16 , fontWeight: 'bold'}} placeholder='Enter email' autoCapitalize="none" onChangeText={(value) => (emailRef.current = value)}/>
 
-        <Input inputStyle ={{ fontSize: 16 , fontWeight: 'bold'}} placeholder="Enter password" secureTextEntry={true}  onChangeText={(value) => (passwordRef.current = value)}/>
+        <Input inputStyle ={{ fontSize: 16 , fontWeight: 'bold'}}
+        secureTextEntry={secureText}
+        rightIcon={
+          <Icon
+            name={secureText ? 'eye-off' : 'eye'}
+            type="feather"
+            color="#888"
+            size={20}
+            onPress={() => setSecureText(!secureText)}
+          /> 
+        }
+          placeholder="Enter password" onChangeText={(value) => (passwordRef.current = value)}
+        />
            
        <TouchableOpacity onPress={()=>router.push('/auth/register')}>
         <Text style={styles.link}>Register</Text>
@@ -43,8 +64,6 @@ const Login = () => {
       <TouchableOpacity onPress={()=>router.push('/auth/forgotPassword')}>
         <Text style={styles.link}>Forgot Password</Text>
        </TouchableOpacity>
-       
-
 
         <Button 
               title="Login"
@@ -61,6 +80,16 @@ const Login = () => {
               }}
               onPress={handleSubmit}
             />
+            
+            <TouchableOpacity>
+            <Icon
+            name={"fingerprint"}
+            type="entypo"
+            color="#888"
+            size={20}
+            onPress={handleSubmit}
+           /> 
+            </TouchableOpacity>
       </SafeAreaView>
     </SafeAreaProvider>
 
