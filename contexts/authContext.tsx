@@ -49,13 +49,8 @@ const register = async (name: string, email: string, password: string) => {
       email,
       uid: response?.user?.uid
     });
-
-    
-   
     const user = response.user;
     await updateProfile(user, { displayName: name });
-    console.log("hey")
-   
     return { success: true };
   } catch (error: any) {
     let msg = error.message;
@@ -79,7 +74,7 @@ const register = async (name: string, email: string, password: string) => {
     }
   } catch (error: any) {
     let msg = error.message;
-    console.log('error', error);
+    console.log('error', msg);
   }
  };
 

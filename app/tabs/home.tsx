@@ -1,5 +1,4 @@
 import { auth } from '@/config/firebase';
-import { Tabs } from 'expo-router';
 import { signOut } from 'firebase/auth';
 import React from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native';
@@ -10,17 +9,14 @@ const Home = () => {const handleLogout= async ()=>{
   }
 const user = auth.currentUser;
 
-
   return (
-    <View style={styles.container}>
-      <Tabs></Tabs>
+    <View style={ styles.container }>
       <Button  title="Logout" onPress={handleLogout}/>
       <Image
         source={require('../../assets/images/welcome.png')}
         style={styles.image}
         resizeMode="contain"
       />
-
       <Text  style={styles.heading}>
         Hello { user?.displayName }
       </Text>
@@ -28,7 +24,6 @@ const user = auth.currentUser;
       <Text style={styles.subtitle}>
         You are doing well today. Don’t forget to exercise in the evening and take glucose test after your meal in the evening.
       </Text>
-
     </View>
   );
 }
